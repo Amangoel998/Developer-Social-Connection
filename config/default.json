@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://Dev_connector:IamDeveloper@devconnector-cluster-kodfu.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtKey":"myJsonToeknSecret"
+}
