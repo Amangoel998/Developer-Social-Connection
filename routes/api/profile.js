@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Profile = require('../../models/Profile');
 const auth = require('../../middleware/auth');
-const {check, validationResult} = require('express-validator/check');
+const {check, validationResult} = require('express-validator');
 
 //@access   Private
 //@route    GET api/profile/me
@@ -101,5 +101,61 @@ router.post('/', [
         res.send('Hello');
     }
 );
+
+
+//@access   Public
+//@route    GET api/profile
+//@Desc     Retrieve All Profiles
+router.get('/',
+    async (req, res) =>{
+        try {
+            const profile = await Profile.find().populate('user', ['name', 'avatar']);
+            res.json(profile);
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).send('Server Error');
+        }
+    }
+);
+
+//@access   Public
+//@route    GET api/profile/user/:user_id
+//@Desc     Retrieve a Profile by UserID
+router.get('/user/:user_id',
+    async (req, res) =>{
+        try {
+            const profile = await Profile.findOne({
+                user: req.params.user_id
+            }).populate('user', ['name', 'avatar']);
+            if(!profile)
+                return res.status(400).json({msg: "Profile Not found"});
+            res.json(profile);
+        } catch (err) {
+            console.log(err.message);
+            // err.king property let us display error if objectId is invalid format
+            if(err.kind == 'ObjectId')
+                return res.status(400).json({msg: "Profile Not found"});
+            res.status(500).send('Server Error');
+        }
+    }
+);
+
+//@access   Private
+//@route    DELET api/profile
+//@Desc     Delete profile, user & posts
+router.deleet('/me', auth,async (req, res) => {
+    try{
+        // Remove Profile
+        await Profile.findOneAndRemove({user: req.user.id});
+        // Remove User
+        await User.findOneAndRemove({_id: req.user.id});
+        if(!profile){
+            return res.status(400).json({ msg: 'No Profile for this user'});
+        }
+        res.json({msg: "User and Profile deleted"});
+    }catch(err){
+        console.log(err);
+    }
+});
 
 module.exports = router;
