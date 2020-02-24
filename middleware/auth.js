@@ -12,7 +12,7 @@ module.exports = function(req, res, next){
     // Verify
     try{
         const payload = jwt.verify(token, config.get('jwtKey'));
-        req.user = payload.user;
+        req.user = payload.user
         // To move to nex middleware
         next();
     }catch(err){
