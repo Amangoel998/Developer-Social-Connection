@@ -1,0 +1,2 @@
+# Developer-Social-Connection
+This project is a full stack application developed in Node.js and React. The project is built on the idea to connect developers and different developer communities based on skills and technologies they work on. It also provides posts creation and profile exchange. The API also uses Github connection to add different projects to the profile on which the developer has worked on.
