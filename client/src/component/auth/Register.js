@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom'
 //impt
 import PropTypes from 'prop-types'
 
-
 const Register = (props) => {
 
   const [ formData, setFormData ] = useState({
@@ -27,7 +26,7 @@ const Register = (props) => {
       e.preventDefault();
       if(password !==password2)
         //console.log("Not match")
-        props.setAlert('Password does not match', 'danger')
+        props.setAlert('Password does not match', 'danger', 3000)
     else {
       console.log("Success")
     // Following code for sumiting data withour redux

@@ -8,6 +8,7 @@ import './App.css';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
+import Alert from './components/layout/Alert';
 
 const App = () => (
   <Provider store={store}>
@@ -16,6 +17,7 @@ const App = () => (
         <Navbar />
         <Route extact path='/' component={Landing} />
         <section className='container'>
+          <Alert />
           <Switch>
             <Route exact path='/register' component={Register}></Route>
             <Route exact path='/login' component={Login}></Route>
